@@ -166,7 +166,7 @@ static unsigned int get_nr_run_avg(void)
 #define HOTPLUG_DOWN_INDEX			(0)
 #define HOTPLUG_UP_INDEX			(1)
 
-#ifdef CONFIG_CPU_OMAP4460
+#ifdef CONFIG_CPU_MSM8600
 static int hotplug_rq[4][2] = {
 	{0, 350}, {350, 200}, {200, 300}, {300, 0}
 };
@@ -434,7 +434,7 @@ show_one(down_differential, down_differential);
 show_one(freq_step, freq_step);
 show_one(cpu_up_rate, cpu_up_rate);
 show_one(cpu_down_rate, cpu_down_rate);
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 show_one(up_nr_cpus, up_nr_cpus);
 #endif
 show_one(max_cpu_lock, max_cpu_lock);
@@ -470,7 +470,7 @@ static ssize_t store_##file_name##_##num_core##_##up_down		\
 
 show_hotplug_param(hotplug_freq, 1, 1);
 show_hotplug_param(hotplug_freq, 2, 0);
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 show_hotplug_param(hotplug_freq, 2, 1);
 show_hotplug_param(hotplug_freq, 3, 0);
 show_hotplug_param(hotplug_freq, 3, 1);
@@ -479,7 +479,7 @@ show_hotplug_param(hotplug_freq, 4, 0);
 
 show_hotplug_param(hotplug_rq, 1, 1);
 show_hotplug_param(hotplug_rq, 2, 0);
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 show_hotplug_param(hotplug_rq, 2, 1);
 show_hotplug_param(hotplug_rq, 3, 0);
 show_hotplug_param(hotplug_rq, 3, 1);
@@ -488,7 +488,7 @@ show_hotplug_param(hotplug_rq, 4, 0);
 
 store_hotplug_param(hotplug_freq, 1, 1);
 store_hotplug_param(hotplug_freq, 2, 0);
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 store_hotplug_param(hotplug_freq, 2, 1);
 store_hotplug_param(hotplug_freq, 3, 0);
 store_hotplug_param(hotplug_freq, 3, 1);
@@ -497,7 +497,7 @@ store_hotplug_param(hotplug_freq, 4, 0);
 
 store_hotplug_param(hotplug_rq, 1, 1);
 store_hotplug_param(hotplug_rq, 2, 0);
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 store_hotplug_param(hotplug_rq, 2, 1);
 store_hotplug_param(hotplug_rq, 3, 0);
 store_hotplug_param(hotplug_rq, 3, 1);
@@ -506,7 +506,7 @@ store_hotplug_param(hotplug_rq, 4, 0);
 
 define_one_global_rw(hotplug_freq_1_1);
 define_one_global_rw(hotplug_freq_2_0);
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 define_one_global_rw(hotplug_freq_2_1);
 define_one_global_rw(hotplug_freq_3_0);
 define_one_global_rw(hotplug_freq_3_1);
@@ -515,7 +515,7 @@ define_one_global_rw(hotplug_freq_4_0);
 
 define_one_global_rw(hotplug_rq_1_1);
 define_one_global_rw(hotplug_rq_2_0);
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 define_one_global_rw(hotplug_rq_2_1);
 define_one_global_rw(hotplug_rq_3_0);
 define_one_global_rw(hotplug_rq_3_1);
@@ -664,7 +664,7 @@ static ssize_t store_cpu_down_rate(struct kobject *a, struct attribute *b,
 	return count;
 }
 
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 static ssize_t store_up_nr_cpus(struct kobject *a, struct attribute *b,
 				const char *buf, size_t count)
 {
@@ -771,7 +771,7 @@ define_one_global_rw(down_differential);
 define_one_global_rw(freq_step);
 define_one_global_rw(cpu_up_rate);
 define_one_global_rw(cpu_down_rate);
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 define_one_global_rw(up_nr_cpus);
 #endif
 define_one_global_rw(max_cpu_lock);
@@ -791,7 +791,7 @@ static struct attribute *dbs_attributes[] = {
 	&freq_step.attr,
 	&cpu_up_rate.attr,
 	&cpu_down_rate.attr,
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 	&up_nr_cpus.attr,
 #endif
 	/* priority: hotplug_lock > max_cpu_lock */
@@ -800,7 +800,7 @@ static struct attribute *dbs_attributes[] = {
 	&dvfs_debug.attr,
 	&hotplug_freq_1_1.attr,
 	&hotplug_freq_2_0.attr,
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 	&hotplug_freq_2_1.attr,
 	&hotplug_freq_3_0.attr,
 	&hotplug_freq_3_1.attr,
@@ -808,7 +808,7 @@ static struct attribute *dbs_attributes[] = {
 #endif
 	&hotplug_rq_1_1.attr,
 	&hotplug_rq_2_0.attr,
-#ifndef CONFIG_CPU_OMAP4460
+#ifndef CONFIG_CPU_MSM8600
 	&hotplug_rq_2_1.attr,
 	&hotplug_rq_3_0.attr,
 	&hotplug_rq_3_1.attr,
