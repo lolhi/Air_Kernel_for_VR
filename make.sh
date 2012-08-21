@@ -21,11 +21,11 @@ echo $PWD
 # Define KERNEL Configuration (depending on the SKY MODEL)
 KERNEL_DEFCONFIG=air_defconfig
 # Build LINUX KERNEL
-mkdir -p ./obj/KERNEL_OBJ/
-make O=./obj/KERNEL_OBJ ARCH=arm CROSS_COMPILE=/home/rdata/edoko-vr/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi- $KERNEL_DEFCONFIG
+#mkdir -p ./obj/KERNEL_OBJ/
+make ARCH=arm CROSS_COMPILE=/home/rdata/edoko-vr/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi- $KERNEL_DEFCONFIG
 #make O=./obj/KERNEL_OBJ ARCH=arm CROSS_COMPILE=arm-eabi- menuconfig
 #cp ./obj/KERNEL_OBJ/.config ./kernel/$KERNEL_DECONFIG
- make -j4 O=./obj/KERNEL_OBJ ARCH=arm CROSS_COMPILE=/home/rdata/edoko-vr/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-
+ make -j4 ARCH=arm CROSS_COMPILE=/home/rdata/edoko-vr/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-
 
 # Copy compressed linux kernel (zImage)
- cp -f ./obj/KERNEL_OBJ/arch/arm/boot/zImage .
+# cp -f ./obj/KERNEL_OBJ/arch/arm/boot/zImage .
