@@ -36,7 +36,12 @@ ashldi3.S
 piggy.xzkern
 #piggy.xzkern.S
 system.dts
-prebuilt/
+obj/
+zImage
+Image
+System.map
+*.gzip
+vmlinux
 
 #
 # Top-level generic files
