@@ -42,6 +42,7 @@ Image
 System.map
 *.gzip
 vmlinux
+kernel/config_data.h
 
 #
 # Top-level generic files
