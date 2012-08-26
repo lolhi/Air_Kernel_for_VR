@@ -5709,10 +5709,8 @@ int transport_send_check_condition_and_sense(
 		/* CURRENT ERROR */
 		buffer[offset] = 0x70;
 		buffer[offset+SPC_ADD_SENSE_LEN_OFFSET] = 10;
-
 		/* ILLEGAL REQUEST */
 		buffer[offset+SPC_SENSE_KEY_OFFSET] = ILLEGAL_REQUEST;
-
 		/* INVALID FIELD IN CDB */
 		buffer[offset+SPC_ASC_KEY_OFFSET] = 0x24;
 		break;
@@ -5720,10 +5718,8 @@ int transport_send_check_condition_and_sense(
 		/* CURRENT ERROR */
 		buffer[offset] = 0x70;
 		buffer[offset+SPC_ADD_SENSE_LEN_OFFSET] = 10;
-
 		/* ILLEGAL REQUEST */
 		buffer[offset+SPC_SENSE_KEY_OFFSET] = ILLEGAL_REQUEST;
-
 		/* INVALID FIELD IN PARAMETER LIST */
 		buffer[offset+SPC_ASC_KEY_OFFSET] = 0x26;
 		break;
