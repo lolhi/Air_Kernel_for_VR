@@ -500,6 +500,9 @@ static int pcie_aspm_sanity_check(struct pci_dev *pdev)
 	int pos;
 	u32 reg32;
 
+	if (aspm_disabled)
+		return 0;
+
 	/*
 	 * Some functions in a slot might not all be PCIe functions,
 	 * very strange. Disable ASPM for the whole slot
@@ -734,11 +737,19 @@ static void __pci_disable_link_state(struct pci_dev *pdev, int state, bool sem,
 	struct pcie_link_state *link;
 
 	if (aspm_disabled && !force)
+<<<<<<< HEAD
 		return;
 
 	if (!pci_is_pcie(pdev))
 		return;
 
+=======
+		return;
+
+	if (!pci_is_pcie(pdev))
+		return;
+
+>>>>>>> linux
 	if (pdev->pcie_type == PCI_EXP_TYPE_ROOT_PORT ||
 	    pdev->pcie_type == PCI_EXP_TYPE_DOWNSTREAM)
 		parent = pdev;
