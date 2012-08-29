@@ -737,19 +737,11 @@ static void __pci_disable_link_state(struct pci_dev *pdev, int state, bool sem,
 	struct pcie_link_state *link;
 
 	if (aspm_disabled && !force)
-<<<<<<< HEAD
 		return;
 
 	if (!pci_is_pcie(pdev))
 		return;
 
-=======
-		return;
-
-	if (!pci_is_pcie(pdev))
-		return;
-
->>>>>>> linux
 	if (pdev->pcie_type == PCI_EXP_TYPE_ROOT_PORT ||
 	    pdev->pcie_type == PCI_EXP_TYPE_DOWNSTREAM)
 		parent = pdev;
