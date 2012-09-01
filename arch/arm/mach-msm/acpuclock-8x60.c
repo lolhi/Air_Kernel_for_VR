@@ -43,16 +43,16 @@
  * The PLL hardware has a minimum frequency of 384MHz.
  * Calibration should respect this limit. */
 #define L_VAL_SCPLL_CAL_MIN	0x08 /* =  432 MHz with 27MHz source */
-#define L_VAL_SCPLL_CAL_MAX	0x20 /* = 1728 MHz with 27MHz source */
+#define L_VAL_SCPLL_CAL_MAX	0x21 /* = 1782 MHz with 27MHz source */
 
 #ifdef CONFIG_SKY_CORE_VOLTAGE
-#define MAX_VDD_SC		1325000 /* uV */
+#define MAX_VDD_SC		1400000 /* uV */
 #define MIN_VDD_SC		800000	/* uV */
 #define VDD_OFFSET            0//75000
 #else
 #define MAX_VDD_SC		1325000 /* uV */
 #endif
-#define MAX_VDD_MEM		1325000 /* uV */
+#define MAX_VDD_MEM		1400000 /* uV */
 #define MAX_VDD_DIG		1300000 /* uV */
 #define MAX_AXI			 310500 /* KHz */
 #define SCPLL_LOW_VDD_FMAX	 594000 /* KHz */
@@ -90,7 +90,7 @@
 /* PTE EFUSE register. */
 #define QFPROM_PTE_EFUSE_ADDR		(MSM_QFPROM_BASE + 0x00C0)
 
-#define FREQ_TABLE_SIZE			34
+#define FREQ_TABLE_SIZE			35
 
 static const void * const clk_ctl_addr[] = {SPSS0_CLK_CTL_ADDR,
 			SPSS1_CLK_CTL_ADDR};
@@ -199,8 +199,7 @@ static struct clkctl_l2_speed l2_freq_tbl_v2[] = {
 	[17] = {1296000,  1, 0x18, 1200000, 1225000, 3},
 	[18] = {1350000,  1, 0x19, 1200000, 1225000, 3},
 	[19] = {1404000,  1, 0x1A, 1200000, 1250000, 3},
-	[20] = {1458000,  1, 0x1B, 1212500, 1250000, 4},
-	[21] = {1512000,  1, 0x1C, 1212500, 1250000, 4},
+	[20] = {1458000,  1, 0x1B, 1225000, 1250000, 4},
 };
 
 #define L2(x) (&l2_freq_tbl_v2[(x)])
@@ -234,7 +233,8 @@ static struct clkctl_acpu_speed acpu_freq_tbl_fast[] = {
   { {1, 1}, 1566000,  ACPU_SCPLL, 0, 0, 1, 0x1D, L2(19), 1225000, 0x03006000},
   { {1, 1}, 1620000,  ACPU_SCPLL, 0, 0, 1, 0x1E, L2(20), 1250000, 0x03006000},
   { {1, 1}, 1674000,  ACPU_SCPLL, 0, 0, 1, 0x1F, L2(20), 1275000, 0x03006000},
-  { {1, 1}, 1728000,  ACPU_SCPLL, 0, 0, 1, 0x20, L2(21), 1300000, 0x03006000},
+  { {1, 1}, 1728000,  ACPU_SCPLL, 0, 0, 1, 0x20, L2(20), 1300000, 0x03006000},
+  { {1, 1}, 1782000,  ACPU_SCPLL, 0, 0, 1, 0x21, L2(20), 1350000, 0x03006000},
   { {0, 0}, 0 },
 };
 
@@ -832,9 +832,9 @@ static struct notifier_block __cpuinitdata acpuclock_cpu_notifier = {
 
 static __init struct clkctl_acpu_speed *select_freq_plan(void)
 {
-	uint32_t pte_efuse, speed_bin, pvs, max_khz;
+	uint32_t max_khz;
 	struct clkctl_acpu_speed *f;
-
+/*
 	pte_efuse = readl_relaxed(QFPROM_PTE_EFUSE_ADDR);
 
 	speed_bin = pte_efuse & 0xF;
@@ -844,9 +844,10 @@ static __init struct clkctl_acpu_speed *select_freq_plan(void)
 	pvs = (pte_efuse >> 10) & 0x7;
 	if (pvs == 0x7)
 		pvs = (pte_efuse >> 13) & 0x7;
-
-	max_khz = 1728000;
-
+*/
+	max_khz = 1782000;
+	acpu_freq_tbl = acpu_freq_tbl_fast;
+/*
 	switch (pvs) {
 		case 0x0:
 		case 0x7:
@@ -857,7 +858,7 @@ static __init struct clkctl_acpu_speed *select_freq_plan(void)
 			pr_info("ACPU PVS: Default to Fast\n");
 			break;
 	}
-
+*/
 	/* Truncate the table based to max_khz. */
 	for (f = acpu_freq_tbl; f->acpuclk_khz != 0; f++) {
 		if (f->acpuclk_khz > max_khz) {
