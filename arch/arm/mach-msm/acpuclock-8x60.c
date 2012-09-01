@@ -46,13 +46,13 @@
 #define L_VAL_SCPLL_CAL_MAX	0x20 /* = 1728 MHz with 27MHz source */
 
 #ifdef CONFIG_SKY_CORE_VOLTAGE
-#define MAX_VDD_SC		1325000 /* uV */
+#define MAX_VDD_SC		1350000 /* uV */
 #define MIN_VDD_SC		800000	/* uV */
 #define VDD_OFFSET            0//75000
 #else
 #define MAX_VDD_SC		1325000 /* uV */
 #endif
-#define MAX_VDD_MEM		1325000 /* uV */
+#define MAX_VDD_MEM		1350000 /* uV */
 #define MAX_VDD_DIG		1300000 /* uV */
 #define MAX_AXI			 310500 /* KHz */
 #define SCPLL_LOW_VDD_FMAX	 594000 /* KHz */
@@ -832,31 +832,11 @@ static struct notifier_block __cpuinitdata acpuclock_cpu_notifier = {
 
 static __init struct clkctl_acpu_speed *select_freq_plan(void)
 {
-	uint32_t pte_efuse, speed_bin, pvs, max_khz;
+	uint32_t max_khz;
 	struct clkctl_acpu_speed *f;
 
-	pte_efuse = readl_relaxed(QFPROM_PTE_EFUSE_ADDR);
-
-	speed_bin = pte_efuse & 0xF;
-	if (speed_bin == 0xF)
-		speed_bin = (pte_efuse >> 4) & 0xF;
-
-	pvs = (pte_efuse >> 10) & 0x7;
-	if (pvs == 0x7)
-		pvs = (pte_efuse >> 13) & 0x7;
-
 	max_khz = 1728000;
-
-	switch (pvs) {
-		case 0x0:
-		case 0x7:
-		case 0x1:
-		case 0x3:
-		default:
-			acpu_freq_tbl = acpu_freq_tbl_fast;
-			pr_info("ACPU PVS: Default to Fast\n");
-			break;
-	}
+	acpu_freq_tbl = acpu_freq_tbl_fast;
 
 	/* Truncate the table based to max_khz. */
 	for (f = acpu_freq_tbl; f->acpuclk_khz != 0; f++) {
